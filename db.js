@@ -30,7 +30,7 @@ class HashStorage {
     while (hash) {
       const obj = this.hashStorage.get(hash)
       history.push(obj)
-      hash = obj.prevHash
+      hash = obj && obj.prevHash
     }
     return Promise.resolve(history)
   }
