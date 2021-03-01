@@ -1,6 +1,7 @@
 const { JWK, JWE } = require('node-jose')
 const { privateDecrypt, publicEncrypt } = require('crypto')
 
+//RFC 4648 - filename safe base encoding
 const base64url = (stuff) => (Buffer.from(stuff)).toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
 
 async function generateKey(keyId) {
