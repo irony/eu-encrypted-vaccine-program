@@ -51,7 +51,7 @@ test('addRecipient throws if key is not a recipient', async () => {
     const someKey = await crypto.generateKey('second')
     const someOtherKey = await crypto.generateKey('third')
 
-    // should not work as someKey is a reader
+    // should not work as someKey is not a recipient
     crypto.addRecipient(someKey, encryptedData, someOtherKey)
   } catch (e) {
     error = e
