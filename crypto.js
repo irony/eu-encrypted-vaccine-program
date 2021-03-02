@@ -19,9 +19,22 @@ async function decrypt(key, jwe) {
 }
 
 function addRecipient(oldRecipient, jwe, newRecipient) {
-  // TODO: stop assuming we are the first recipient
-  const oldRecipientCekEncrypted = jwe.recipients[0].encrypted_key
-  const cek = privateDecrypt(oldRecipient.toPEM(true), Buffer.from(oldRecipientCekEncrypted, 'base64'))
+  let cek
+  for (const recipient of jwe.recipients) {
+    try {
+      cek = privateDecrypt(oldRecipient.toPEM(true), Buffer.from(recipient.encrypted_key, 'base64'))
+      break
+    } catch (error) {
+      // keep trying if we get the expected error from key not matching
+      if (error.message !== 'error:04099079:rsa routines:RSA_padding_check_PKCS1_OAEP_mgf1:oaep decoding error') {
+        throw error
+      }
+    }
+  }
+  if (!cek) {
+    throw new Error('Could not unlock CEK. Key is not a recipient.')
+  }
+
   const newRecipientCekEncrypted = base64url(publicEncrypt(newRecipient.toPEM(), cek))
   jwe.recipients.push({
      // Is there a point to using the per-recipient unprotected header?
@@ -31,7 +44,7 @@ function addRecipient(oldRecipient, jwe, newRecipient) {
     },
     encrypted_key: newRecipientCekEncrypted
   })
-  // TODO: mutate input or return copy?
+  // TODO: don't mutate input
   return jwe
 }
 
