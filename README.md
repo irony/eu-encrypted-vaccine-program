@@ -16,8 +16,13 @@ To summarize the characteristics:
 A user ‘Alice’ walks into a vaccine clinic in Stockholm. She gets her second Covid Vaccine shot from clerk Bob and before doing so the personnel checks her photo ID. Bob opens up the EU Vaccine app, logs in with the clinic ID and scans their issued paper key and creates a new Vaccination in the app. Bob enters the Name and ID from Alice's photo ID in the app. At this time stores the proof encrypted on the EU ledger and also prints three QR codes:
   
 
+![image](https://user-images.githubusercontent.com/395843/111073489-2cda2780-84df-11eb-8955-45215503af46.png)
 1. The Black Key. The verifiable key for Alice Vaccination ID on the ledger.
+
+![image](https://user-images.githubusercontent.com/395843/111073496-3a8fad00-84df-11eb-801a-b705b4df2e98.png)
 2. Alice’s Red Key. The red key is Alice’s paper key and can be used to verify her in the EU vaccination app. This key is secure and should never be shared with anyone.
+
+![image](https://user-images.githubusercontent.com/395843/111073507-4a0ef600-84df-11eb-83eb-60fc7efdd789.png)
 3. The Green key. Contains encrypted data that can be shared with authorities at any time to prove her vaccination status. This green QR-code contains the proof of vaccination, Alice’s ID and name. It can be read by anyone with the corresponding encryption keys.
 
 ## Usage
