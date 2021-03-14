@@ -1,24 +1,28 @@
 const { JWK, JWE } = require('node-jose')
+const { generate } = require('shortid')
 const { privateDecrypt, publicEncrypt } = require('crypto')
 
-//RFC 4648 - filename safe base encoding
+// RFC 4648 - filename safe base encoding
 const base64url = (stuff) => (Buffer.from(stuff)).toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
 
-async function generateKey(keyId) {
-  return await JWK.createKeyStore().generate('RSA', 1024, { kid: keyId } )
+function generateId () {
+  return generate()
 }
 
-async function encrypt(key, data) {
+async function generateKey (keyId) {
+  return await JWK.createKeyStore().generate('RSA', 1024, { kid: keyId })
+}
+
+async function encrypt (key, data) {
   // TODO: does this work if data is an object?
   return await JWE.createEncrypt(key).update(data, 'utf-8').final()
 }
 
-async function decrypt(key, jwe) {
-  // TODO: this definitely doesn't work with objects :D
-  return (await JWE.createDecrypt(key).decrypt(jwe)).payload.toString()
+async function decrypt (key, jwe) {
+  return JSON.parse((await JWE.createDecrypt(key).decrypt(jwe)).payload.toString())
 }
 
-function addRecipient(oldRecipient, jwe, newRecipient) {
+function addRecipient (oldRecipient, jwe, newRecipient) {
   let cek
   for (const recipient of jwe.recipients) {
     try {
@@ -37,9 +41,9 @@ function addRecipient(oldRecipient, jwe, newRecipient) {
 
   const newRecipientCekEncrypted = base64url(publicEncrypt(newRecipient.toPEM(), cek))
   jwe.recipients.push({
-     // Is there a point to using the per-recipient unprotected header?
+    // Is there a point to using the per-recipient unprotected header?
     header: {
-      kid: newRecipient.kid,
+      kid: newRecipient.kid
       // alg: 'RSA-OAEP'
     },
     encrypted_key: newRecipientCekEncrypted
@@ -49,8 +53,9 @@ function addRecipient(oldRecipient, jwe, newRecipient) {
 }
 
 module.exports = {
+  generateId,
   generateKey,
   encrypt,
   decrypt,
-  addRecipient,
+  addRecipient
 }
