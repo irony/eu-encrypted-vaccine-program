@@ -42,10 +42,12 @@ This is an example of a Red Key (JWK).
 - Green Keys
 This is the ciphertext from the Green Key. It can be read both by the Red Key of Alice or by the authorities with valid keys. 
 
-    VxW5xmH_IzmirVpG4aJML3PPYsybSYdulXI7irG163wTwUJQhBuHyw20cfezfwq8Qj8YLtjLwjZlJbadFuAz6ehp3tt4u20pd1MdTVIHa3gYPL-19oPYDOmH5HCMuepDa1J6MfcydDx0EbQY2h5sRP1XUUxWXlaAxxZbijHxwj_SIdlgfrIhnBIK2B01ACEf6a7MCf5zAvUzb1PXLOzD_g
+```           VxW5xmH_IzmirVpG4aJML3PPYsybSYdulXI7irG163wTwUJQhBuHyw20cfezfwq8Qj8YLtjLwjZlJbadFuAz6ehp3tt4u20pd1MdTVIHa3gYPL-19oPYDOmH5HCMuepDa1J6MfcydDx0EbQY2h5sRP1XUUxWXlaAxxZbijHxwj_SIdlgfrIhnBIK2B01ACEf6a7MCf5zAvUzb1PXLOzD_g
+```
 
 Deciphered this is the contents of the encrypted string. No proof of authority needs to be included in the data - the keys used to encrypt the data proves the authenticity of the cipher.
-    
+
+```
     {
       "id": "cYLsTT1-i",
       "person": {
@@ -54,18 +56,21 @@ Deciphered this is the contents of the encrypted string. No proof of authority n
       },
       "proof": "Anonyn data som verifierar vaccinationen"
     }
-
+```
 
 - Black Keys
 The black keys contain the URL and ID to the vaccination proof. This can be used in any phone to verify that the Black Key is still valid and if you have corresponding red key you can also decrypt the encrypted information. 
-https://vaccineledger.eu/cYLsTT1-i
 
+```
+https://vaccineledger.eu/cYLsTT1-i
+```
 
 - Public ledger
 This is an example of Alice’s public ledger. The ID can be used to find the corresponding block in the ledger.
   
 
 This is and example of the contents of a record in the ledger.
+
     {
       "id": "cYLsTT1-i",
       "encrypted": {
@@ -122,7 +127,7 @@ This is and example of the contents of a record in the ledger.
       "hash": "7e08d5d0ae3410275d9378d7f8973f12a2b051c1be8ab5dcc31d1b5f97ff2500",
       "prevHash": "4373674dc12990ede72b63ee3a2577d1bad2b5e8bed52589580ad1fe279250b8"
     }
-
+```
 
 ## Reference implementation
 
