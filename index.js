@@ -1,5 +1,5 @@
 (async () => {
-  const actor = require('./actor.js')
+  const actor = require('./lib/actor.js')
 
   let zalando = await actor.create('Zalando')
   let postnord = await actor.create('Postnord')

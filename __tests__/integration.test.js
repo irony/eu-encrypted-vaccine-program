@@ -1,4 +1,4 @@
-const actor = require('./actor.js')
+const actor = require('../lib/actor.js')
 
 test('actor can not read parcel destination before being added as reader', async () => {
   expect.assertions(1)

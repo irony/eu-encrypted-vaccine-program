@@ -1,4 +1,4 @@
-const crypto = require('./crypto')
+const crypto = require('../lib/crypto')
 
 test('the basic crypto functions work as expected', async () => {
   expect.assertions(5)
