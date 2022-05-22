@@ -1,11 +1,9 @@
-(async () => {
-  const actor = require('./lib/actor.js')
+const crypto = require('./lib/crypto.js')
+const actor = require('./lib/actor.js')
+const db = require('./lib/db.js')
 
-  let zalando = await actor.create('Zalando', 'parcels')
-  let postnord = await actor.create('Postnord', 'parcels')
-
-  let package = await zalando.createObject({ pickup: 'Zalando' })
-  await zalando.addPayloadReader(package.id, postnord)
-  const updatedPackage = await postnord.readPayload(package.id)
-  console.log('package', updatedPackage)
-})()
+module.exports = {
+  crypto,
+  actor,
+  db,
+}
